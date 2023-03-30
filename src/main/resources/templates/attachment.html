@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src=""></script>
+    <link href="../static/css/attachment.css" rel="stylesheet">
+    <link href="../static/js/attachment.js" rel="stylesheet">
+
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+
+<div class="list">
+    <div class="list-items" th:each="attachment : ${attachments}" id="attachments" >
+<!--        <img style="height: 197px; width: 197px" th:src="@{/image(name=${attachment.getFileName()})}">-->
+        <div class="half">
+        <a th:href="@{'/downloadfile?id=' + ${attachment.id}}" th:text="${attachment.getFileName()}"> </a>
+        </div>
+        <div class="half2">
+            <form th:action="@{'/attachment/' + ${attachment.id} + '/delete'}" >
+                <input type="hidden" name="emailId" th:value="${attachment.emailId}"/>
+            <button type="submit" id="submitButton" >x</button>
+        </form>
+        </div>
+    </div>
+</div>
+    <div th:insert="fragments/fragments :: popup-fragment"></div>
+</div>
+</div>
+
+<div class="topnav-right-side">
+    <div class="sidebar">
+    <button class="close-btn" title="close" id="hide" onclick="PopUpShowImageFormat()">for add attachment please click here</button>
+</div>
+    <div class="main-page-title">
+        <p> Attachments List </p>
+    </div>
+</div>
+
+<script>
+$("#import").on("change", function(){
+    var path = $(this).val();
+  var myP = document.getElementById("msg");
+
+    var formTag = $("#import-form")[0];
+    var formData = new FormData(formTag);
+    formData.append("file", $(this)[0].files[0]);
+
+
+   $.ajax({
+    url: "/fileUpload",
+    data:formData,
+    type:"post",
+    cache: false,
+    contentType: false,
+    processData: false,
+    method: 'POST',
+    type: 'POST',
+   success: function() {
+myP.innerHTML = "Your attachment successfully added";
+myP.style.color = "green";
+
+    },
+    error: function(jqxhr, textStatus, errThrown){
+        console.log(textStatus);
+        console.log(errThrown);
+    }
+
+});
+
+});
+</script>
+<script>
+   function PopUpShowImageFormat() {
+    $("#popup-container-image-format").show();
+    $("#header").css("-webkit-filter", "blur(10px)");
+    $("#header").css("pointer-events", "none");
+    $("#show-btn").css("pointer-events", "none");
+    $("#main-wrapper").css("pointer-events", "none");
+    $("#show-btn").css("-webkit-filter", "blur(10px)");
+    $("#main-wrapper").css("-webkit-filter", "blur(10px)");
+}
+
+</script>
+<script>
+    function PopUpHide() {
+    window.location.href = $("#tab").text();
+    $("#header").css("-webkit-filter", "blur(0px)");
+    $("#header").css("pointer-events", "auto");
+    $("#show-btn").css("pointer-events", "auto");
+    $("#main-wrapper").css("pointer-events", "auto");
+    $("#show-btn").css("-webkit-filter", "blur(0px)");
+    $("#main-wrapper").css("-webkit-filter", "blur(0px)");
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+.ABOUT
+
+THis application is a simple application for uploading a file to database connecting it to an emailId.
+
+ENDPOINT
+
+fileUpload endpoint
+======================
+  Http method  -POST METHOD
+  RequestParam - emailId
+  RequestPart - media file
+
+  The endpoint returns a string.
+
+
+TEST-RUN
+
+The application can be tested on swagger using the below link
+
+http://localhost:8080/swagger-ui/
+

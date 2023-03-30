@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="popup-fragment">
+    <div class="popup-container-image-format" id="popup-container-image-format">
+        <div class="popup-wrapper" id="popup-wrapper-format">
+            <div class="close">
+            <button  onclick="PopUpHide()">×</button>
+            </div>
+            <div class="add">
+                <p id="msg">Add attachment</p>
+            </div>
+            <form id="import-form" action="" method="post" enctpye="multipart/form-data">
+                    <input type="hidden" name="emailId" th:value="${emailId}"/>
+                <div class="cloud>">
+                    <label for="import" width="60px" height="60px">
+                        <span id="boot-icon" class="bi bi-cloud-upload" style="100pxcursor:pointer;font-size: 200px;
+                             color: rgb(84, 84, 84); border: solid 2px; padding: 0% -11% 8% 11%"></span>
+                    </label>
+                    <input th:name="fileName"  type="file" id="import"  hidden/>
+                </div>
+                <div class="close">
+                    <button type="button" class="button-save" id="submit" onclick="PopUpHide()">
+                    <b>OK</b>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</th:block>
+</html>
